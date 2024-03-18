@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OnLimitedAution</title>
+    <!-- 여기에 CSS 링크 추가 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/indexcss.css}">
+    <!-- 여기에 JavaScript 링크 추가 -->
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+
+<header>
+    <h1>OnLimitedAution</h1>
+</header>
+
+<nav class="main-nav">
+    <ul>
+        <li><a href="#" class="nav-btn" onclick="enterAuction()">경매입장</a></li>
+        <li><a href="#" class="nav-btn" onclick="openAuction()">경매열기</a></li>
+        <li><a href="#" class="nav-btn" onclick="login()">로그인</a></li>
+        <li><a href="#" class="nav-btn" onclick="register()">회원가입</a></li>
+        <li><a href="#" class="nav-btn" onclick="addProduct()">판매상품 등록</a></li>
+        <li><a href="#" class="nav-btn" onclick="myPage()">마이페이지</a></li>
+        <li>컨텐츠 안에서 직접 출력 = [[${data}]]</li>
+        <div id="auctionResponse"></div>
+
+    </ul>
+</nav>
+
+<!-- 여기에 본문 내용 추가 -->
+
+<footer class="main-footer">
+    <!-- 여기에 푸터 내용 추가 -->
+</footer>
+
+</body>
+</html>
