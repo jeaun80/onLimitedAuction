@@ -30,6 +30,24 @@
 
 <!-- 여기에 본문 내용 추가 -->
 
+<h2>Upload Image</h2>
+<form action="/images/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <button type="submit">Upload</button>
+</form>
+/images/read
+<div id="imageContainer"></div>
+<h2>Uploaded Image</h2>
+<img id="uploadedImage" src="" alt="Uploaded Image">
+
+<h2>Uploaded Images</h2>
+<div th:if="${images != null}">
+    <ul>
+        <li th:each="image : ${images}">
+            <img th:src="${images}" style="max-width: 200px; max-height: 200px;"/>
+        </li>
+    </ul>
+</div>
 <footer class="main-footer">
     <!-- 여기에 푸터 내용 추가 -->
 </footer>
