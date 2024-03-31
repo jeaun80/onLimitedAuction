@@ -47,14 +47,17 @@ function openAuction() {
 }
 
 function login() {
-    fetch('/images/read?fileName=/Users/gimjingwon/Documents/Auction/image/09a2c770-59fe-4fd0-8571-404836b2eaf0_IMG_9406 2 (1).jpg')
-        .then(response => response.blob())
-        .then(blob => {
-            const url = URL.createObjectURL(blob);
-            document.getElementById('uploadedImage').src = url;
+    fetch("api/item/1")
+        .then(response => {return response.json()})
+        .then(data => {
+            console.log(data); // 서버에서 받은 데이터
+
+            document.getElementById('productImage').src = data.imagePath;
         });
     console.log("로그인 버튼이 클릭되었습니다.");
     // 원하는 기능 추가
+    window.onload = fetchProductDetails;
+
 }
 
 function register() {

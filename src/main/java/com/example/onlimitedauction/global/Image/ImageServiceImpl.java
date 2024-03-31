@@ -48,7 +48,7 @@ public class ImageServiceImpl implements ImageService{
     @Override
     public String updateImage(String currentFileName,MultipartFile imageFile) {
 
-        if(validateFile(imageFile)){
+        if(!validateFile(imageFile)){
             throw new RuntimeException();
         }
 

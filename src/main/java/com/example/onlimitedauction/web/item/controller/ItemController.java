@@ -4,19 +4,21 @@ package com.example.onlimitedauction.web.item.controller;
 import com.example.onlimitedauction.web.item.dto.*;
 import com.example.onlimitedauction.web.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/Item")
+@RequestMapping("/api/item")
 public class ItemController {
 
     private final ItemService itemService;
 
     @PostMapping()
-    public ResponseEntity createItem(@RequestBody RequestCreateItemDto requestCreateItemDto){
+    public ResponseEntity createItem( RequestCreateItemDto requestCreateItemDto){
         try{
             ResponseCreateItemDto dto = itemService.createItem(requestCreateItemDto);
             return new ResponseEntity(dto,HttpStatus.OK);
@@ -51,10 +53,13 @@ public class ItemController {
 
     }
 
-    @PatchMapping()
-    public ResponseEntity updateItem(@RequestBody RequestUpdateItemDto requestUpdateItemDto){
+    @PostMapping("/update")
+    public ResponseEntity updateItem( RequestUpdateItemDto requestUpdateItemDto){
         try{
+            log.info("controller 실행됨 "+requestUpdateItemDto.getItemName());
             ResponseUpdateItemDto dto = itemService.updateItem(requestUpdateItemDto);
+            log.info("service 실행끝남"+requestUpdateItemDto.getItemName());
+
             return new ResponseEntity(dto,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);

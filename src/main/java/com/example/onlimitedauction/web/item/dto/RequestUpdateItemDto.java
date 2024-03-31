@@ -6,11 +6,15 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RequestUpdateItemDto {
 
     private Long id;
@@ -20,8 +24,6 @@ public class RequestUpdateItemDto {
     private String discription;
 
     private MultipartFile file;
-
-    private String imagePath;
 
     private int minPrice;
 

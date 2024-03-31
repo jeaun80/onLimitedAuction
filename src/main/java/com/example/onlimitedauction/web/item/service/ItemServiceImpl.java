@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Log4j2
@@ -43,25 +43,20 @@ public class ItemServiceImpl implements ItemService {
     public ResponseReadItemDto readItem(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(()->new IllegalArgumentException());
 
-        Resource file = imageService.readImage(item.getImagePath());
-
-        return new ResponseReadItemDto(item,file);
+        return new ResponseReadItemDto(item);
     }
 
     @Override
     public ResponseReadAllItemDto readItemAll(Integer pageIndex, Long topId, Integer sizePerPage) {
         Page<ResponseReadItemDto> itemPage;
 
-        Pageable pageable = PageRequest.of(pageIndex, sizePerPage, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageIndex, sizePerPage, Sort.Direction.DESC, "item_id");
 
         if(topId == 0) {
             itemPage = itemRepository.findAll(pageable).map(ResponseReadItemDto::response);
         }
         else {
             itemPage = itemRepository.findAllByTopId(topId, pageable).map(ResponseReadItemDto::response);
-        }
-        for(ResponseReadItemDto item: itemPage){
-            item.setImageFiles(imageService.readImage(item.getImagePath()));
         }
 
         return new ResponseReadAllItemDto(itemPage.getContent(), itemPage.getPageable(), itemPage.isLast());
@@ -76,16 +71,18 @@ public class ItemServiceImpl implements ItemService {
         item.setDiscription(requestUpdateItemDto.getDiscription());
         item.setMinPrice(requestUpdateItemDto.getMinPrice());
 
-        item.setItemName(imageService.updateImage(requestUpdateItemDto.getImagePath(), requestUpdateItemDto.getFile()));
+        item.setImagePath(imageService.updateImage(item.getImagePath(), requestUpdateItemDto.getFile()));
+        itemRepository.save(item);
 
         return new ResponseUpdateItemDto(item.getId());
     }
 
     @Override
     public ResponseDeleteItemDto deleteItem(Long id) {
-        itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException());
+        Item item = itemRepository.findById(id).orElseThrow(()-> new IllegalArgumentException());
 
         itemRepository.deleteById(id);
+        imageService.deleteImage(item.getImagePath());
 
         return new ResponseDeleteItemDto(id);
     }
