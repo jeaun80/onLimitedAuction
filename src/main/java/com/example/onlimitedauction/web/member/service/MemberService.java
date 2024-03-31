@@ -19,6 +19,8 @@ public interface MemberService {
     //delete
     void delete(Long id);
 
+    Member getCurrentMember(Long id);
+
     default Member toEntity(RequestCreateMemberDto memberDto){
         return Member.builder()
                 .email(memberDto.getEmail())

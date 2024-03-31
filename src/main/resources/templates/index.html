@@ -35,11 +35,6 @@
     <input type="file" name="file">
     <button type="submit">Upload</button>
 </form>
-/images/read
-<div id="imageContainer"></div>
-<h2>Uploaded Image</h2>
-<img id="uploadedImage" src="" alt="Uploaded Image">
-
 <h2>Uploaded Images</h2>
 <div th:if="${images != null}">
     <ul>
@@ -48,7 +43,9 @@
         </li>
     </ul>
 </div>
+
 <footer class="main-footer">
+    <img th:id="productImage" src="" alt="Product Image">
     <!-- 여기에 푸터 내용 추가 -->
 </footer>
 

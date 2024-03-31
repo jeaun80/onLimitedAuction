@@ -6,7 +6,7 @@ import java.util.UUID;
 public class FileGeneratorUtil {
 
     private static final String URL_FORMAT = "%s/%s";
-    private static final String BASE_URL = "/Users/gimjingwon/Documents/Auction/image";
+    private static final String BASE_URL = "/Users/gimjingwon/Documents/onLimitedAuction/src/main/resources/static/image";
 
     public static String generateFileName(String fileName) {
         String file = UUID.randomUUID().toString() + "_" + fileName;

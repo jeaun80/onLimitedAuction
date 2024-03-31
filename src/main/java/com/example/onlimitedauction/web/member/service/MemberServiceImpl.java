@@ -48,4 +48,9 @@ public class MemberServiceImpl implements MemberService{
 
         memberRepository.deleteById(id);
     }
+
+    @Override
+    public Member getCurrentMember(Long id) {
+        return memberRepository.findById(id).orElseThrow(()-> new IllegalArgumentException());
+    }
 }
