@@ -76,4 +76,14 @@ public class ItemController {
         }
     }
 
+    @PutMapping("/select")
+    public ResponseEntity setBidItemAll(@RequestBody RequestUpdateBidItemDto requestUpdateBidItemDto){
+        try{
+            itemService.updateBidItemAll(requestUpdateBidItemDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
