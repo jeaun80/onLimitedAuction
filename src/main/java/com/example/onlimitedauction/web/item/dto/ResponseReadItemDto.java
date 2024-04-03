@@ -4,8 +4,6 @@ import com.example.onlimitedauction.global.type.itemType;
 import com.example.onlimitedauction.web.item.entity.Item;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Log4j2
@@ -31,6 +29,8 @@ public class ResponseReadItemDto {
 
     private Long memberId;
 
+    private Long bidId;
+
     public ResponseReadItemDto(Item item){
         this.id = item.getId();
         this.itemName = item.getItemName();
@@ -39,20 +39,9 @@ public class ResponseReadItemDto {
         this.itemStatus = item.getItemStatus();
         this.memberId = item.getMember().getId();
         this.imagePath = "http://localhost:8080"+item.getImagePath();
+        if(item.getBid()!=null){
+            this.bidId = item.getBid().getId();
+        }
     }
 
-    public static ResponseReadItemDto response(Item item){
-
-        return ResponseReadItemDto.builder()
-                .id(item.getId())
-                .itemName(item.getItemName())
-                .discription(item.getDiscription())
-                .itemStatus(item.getItemStatus())
-                .minPrice(item.getMinPrice())
-                .memberId(item.getMember().getId())
-                .imagePath("http://localhost:8080"+item.getImagePath())
-                .build();
-
-
-    }
 }

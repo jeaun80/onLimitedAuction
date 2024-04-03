@@ -2,6 +2,7 @@ package com.example.onlimitedauction.web.bid.service;
 
 
 import com.example.onlimitedauction.web.bid.dto.*;
+import com.example.onlimitedauction.web.bid.entity.Bid;
 
 
 public interface BidService {
@@ -14,7 +15,7 @@ public interface BidService {
 
     ResponseDeleteBidDto deleteBid(Long id);
 
-
+    Bid getCurrentBid(Long id);
 
 
 

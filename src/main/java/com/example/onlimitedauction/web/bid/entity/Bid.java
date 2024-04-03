@@ -1,6 +1,7 @@
 package com.example.onlimitedauction.web.bid.entity;
 
 import com.example.onlimitedauction.global.type.bidType;
+import com.example.onlimitedauction.web.item.entity.Item;
 import com.example.onlimitedauction.web.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -10,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -40,4 +43,7 @@ public class Bid {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "bid", fetch = FetchType.LAZY)
+    private List<Item> items = new ArrayList<>();
 }

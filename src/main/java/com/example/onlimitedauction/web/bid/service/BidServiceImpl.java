@@ -3,6 +3,8 @@ package com.example.onlimitedauction.web.bid.service;
 import com.example.onlimitedauction.web.bid.dto.*;
 import com.example.onlimitedauction.web.bid.entity.Bid;
 import com.example.onlimitedauction.web.bid.repository.BidRepository;
+import com.example.onlimitedauction.web.item.entity.Item;
+import com.example.onlimitedauction.web.item.repository.ItemRepository;
 import com.example.onlimitedauction.web.member.entity.Member;
 import com.example.onlimitedauction.web.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class BidServiceImpl implements BidService{
 
     private final BidRepository bidRepository;
+    private final ItemRepository itemRepository;
     private final MemberService memberService;
     @Override
     public ResponseCreateBidDto createBid(RequestCreateBidDto requestCreateBidDto) {
@@ -34,7 +37,7 @@ public class BidServiceImpl implements BidService{
 
         Bid bid= bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        return new ResponseReadBidDto().entityToDto(bid);
+        return new ResponseReadBidDto(bid);
     }
 
     @Override
@@ -45,10 +48,10 @@ public class BidServiceImpl implements BidService{
         Pageable pageable = PageRequest.of(pageIndex, sizePerPage, Sort.Direction.DESC, "bid_id");
 
         if(topId == 0) {
-            bidPage = bidRepository.findAll(pageable).map(ResponseReadBidDto::response);
+            bidPage = bidRepository.findAll(pageable).map(ResponseReadBidDto::new);
         }
         else {
-            bidPage = bidRepository.findAllByTopId(topId, pageable).map(ResponseReadBidDto::response);
+            bidPage = bidRepository.findAllByTopId(topId, pageable).map(ResponseReadBidDto::new);
         }
 
         return new ResponseReadAllBidDto(bidPage.getContent(), bidPage.getPageable(), bidPage.isLast());
@@ -56,11 +59,23 @@ public class BidServiceImpl implements BidService{
 
     @Override
     public ResponseDeleteBidDto deleteBid(Long id) {
-        bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Bid bid = bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+        for (Item item:
+                bid.getItems()) {
+            item.setBid(null);
+        }
+        itemRepository.saveAll(bid.getItems());
 
         bidRepository.deleteById(id);
 
         return new ResponseDeleteBidDto(id);
+    }
+
+    @Override
+    public Bid getCurrentBid(Long id){
+
+        return bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
 
