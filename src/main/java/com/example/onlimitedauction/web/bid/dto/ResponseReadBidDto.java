@@ -2,12 +2,14 @@ package com.example.onlimitedauction.web.bid.dto;
 
 import com.example.onlimitedauction.global.type.bidType;
 import com.example.onlimitedauction.web.bid.entity.Bid;
+import com.example.onlimitedauction.web.item.dto.ResponseReadItemDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,8 +31,10 @@ public class ResponseReadBidDto {
 
     private Long memberid;
 
-    public ResponseReadBidDto entityToDto(Bid bid){
-        return ResponseReadBidDto.builder()
+    private List<ResponseReadItemDto> itemList;
+
+    public ResponseReadBidDto(Bid bid){
+        ResponseReadBidDto.builder()
                 .id(bid.getId())
                 .title(bid.getTitle())
                 .discription(bid.getDiscription())
@@ -38,18 +42,8 @@ public class ResponseReadBidDto {
                 .startTime(bid.getStartTime())
                 .endTime(bid.getEndTime())
                 .memberid(bid.getMember().getId())
+                .itemList(bid.getItems().stream().map(ResponseReadItemDto::new).toList())
                 .build();
     }
 
-    public static ResponseReadBidDto response(Bid bid){
-        return ResponseReadBidDto.builder()
-                .id(bid.getId())
-                .title(bid.getTitle())
-                .discription(bid.getDiscription())
-                .bidStatus(bid.getBidStatus())
-                .startTime(bid.getStartTime())
-                .endTime(bid.getEndTime())
-                .memberid(bid.getMember().getId())
-                .build();
-    }
 }
