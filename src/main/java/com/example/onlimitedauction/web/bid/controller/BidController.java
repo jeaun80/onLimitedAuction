@@ -2,6 +2,7 @@ package com.example.onlimitedauction.web.bid.controller;
 
 
 import com.example.onlimitedauction.web.bid.dto.*;
+import com.example.onlimitedauction.web.bid.entity.Bid;
 import com.example.onlimitedauction.web.bid.service.BidService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -37,7 +38,7 @@ public class BidController {
     public ResponseEntity readBid(@PathVariable Long id){
         try{
             ResponseReadBidDto responsedto = bidService.readBid(id);
-
+log.info(responsedto.getId());
             return new ResponseEntity(responsedto, HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
@@ -64,6 +65,18 @@ public class BidController {
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity bidVideoUpload( RequestUploadBidDto requestUploadBidDto){
+        try{
+            ResponseUploadBidDto responseDto = bidService.VideoUpload(requestUploadBidDto);
+
+            return new ResponseEntity(responseDto,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 }

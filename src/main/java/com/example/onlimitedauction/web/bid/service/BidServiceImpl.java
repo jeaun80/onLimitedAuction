@@ -1,5 +1,6 @@
 package com.example.onlimitedauction.web.bid.service;
 
+import com.example.onlimitedauction.global.Image.ImageService;
 import com.example.onlimitedauction.web.bid.dto.*;
 import com.example.onlimitedauction.web.bid.entity.Bid;
 import com.example.onlimitedauction.web.bid.repository.BidRepository;
@@ -23,6 +24,8 @@ public class BidServiceImpl implements BidService{
     private final BidRepository bidRepository;
     private final ItemRepository itemRepository;
     private final MemberService memberService;
+    private final ImageService imageService;
+
     @Override
     public ResponseCreateBidDto createBid(RequestCreateBidDto requestCreateBidDto) {
         Member member = memberService.getCurrentMember(requestCreateBidDto.getMemberId());
@@ -37,7 +40,8 @@ public class BidServiceImpl implements BidService{
 
         Bid bid= bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
-        return new ResponseReadBidDto(bid);
+        ResponseReadBidDto r = new ResponseReadBidDto(bid);
+        return r;
     }
 
     @Override
@@ -60,13 +64,15 @@ public class BidServiceImpl implements BidService{
     @Override
     public ResponseDeleteBidDto deleteBid(Long id) {
         Bid bid = bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-
         for (Item item:
                 bid.getItems()) {
             item.setBid(null);
+            imageService.deleteImage(item.getImagePath());
         }
         itemRepository.saveAll(bid.getItems());
-
+        if(bid.getVideoPath().length()>0){
+            imageService.deleteImage(bid.getVideoPath());
+        }
         bidRepository.deleteById(id);
 
         return new ResponseDeleteBidDto(id);
@@ -78,5 +84,14 @@ public class BidServiceImpl implements BidService{
         return bidRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-
+    @Override
+    public ResponseUploadBidDto VideoUpload(RequestUploadBidDto requestUploadBidDto) {
+        Bid bid = getCurrentBid(requestUploadBidDto.getId());
+        if(bid.getVideoPath()!=null){
+            imageService.deleteImage(bid.getVideoPath());
+        }
+        bid.setVideoPath(imageService.saveImage(requestUploadBidDto.getFile()));
+        bidRepository.save(bid);
+        return new ResponseUploadBidDto(bid.getId());
+    }
 }

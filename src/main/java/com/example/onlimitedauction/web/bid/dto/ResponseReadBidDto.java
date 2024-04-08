@@ -31,19 +31,22 @@ public class ResponseReadBidDto {
 
     private Long memberid;
 
+    private String videoFile;
+
     private List<ResponseReadItemDto> itemList;
 
     public ResponseReadBidDto(Bid bid){
-        ResponseReadBidDto.builder()
-                .id(bid.getId())
-                .title(bid.getTitle())
-                .discription(bid.getDiscription())
-                .bidStatus(bid.getBidStatus())
-                .startTime(bid.getStartTime())
-                .endTime(bid.getEndTime())
-                .memberid(bid.getMember().getId())
-                .itemList(bid.getItems().stream().map(ResponseReadItemDto::new).toList())
-                .build();
+        this.id = bid.getId();
+        this.title = bid.getTitle();
+        this.discription = bid.getDiscription();
+        this.bidStatus = bid.getBidStatus();
+        this.startTime = bid.getStartTime();
+        this.endTime = bid.getEndTime();
+        this.memberid = bid.getMember().getId();
+        this.itemList = bid.getItems().stream().map(ResponseReadItemDto::new).toList();
+        if(bid.getVideoPath()!=null){
+            this.videoFile = "http://localhost:8080"+bid.getVideoPath();
+        }
     }
 
 }

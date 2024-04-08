@@ -40,10 +40,16 @@ public class Bid {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     private LocalDateTime endTime;
 
+    private String videoPath;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @OneToMany(mappedBy = "bid", fetch = FetchType.LAZY)
     private List<Item> items = new ArrayList<>();
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
 }

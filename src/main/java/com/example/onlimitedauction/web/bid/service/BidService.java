@@ -17,6 +17,7 @@ public interface BidService {
 
     Bid getCurrentBid(Long id);
 
+    ResponseUploadBidDto VideoUpload(RequestUploadBidDto requestUploadBidDto);
 
 
 
