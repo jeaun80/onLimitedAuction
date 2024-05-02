@@ -38,7 +38,7 @@ public class ResponseReadItemDto {
         this.minPrice = item.getMinPrice();
         this.itemStatus = item.getItemStatus();
         this.memberId = item.getMember().getId();
-        this.imagePath = "http://localhost:8080"+item.getImagePath();
+        this.imagePath = "http://localhost:8083"+item.getImagePath();
         if(item.getBid()!=null){
             this.bidId = item.getBid().getId();
         }

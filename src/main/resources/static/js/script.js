@@ -59,12 +59,54 @@ function login() {
     window.onload = fetchProductDetails;
 
 }
-
-function register() {
+async function fetchLiveStreams(pageIndex,topId,sizePerPage) {
+    try {
+        const response = await fetch('/api/bid?pageIndex=${pageIndex}&topId=${topId}&sizePerPage=${sizePerPage}');
+        const data = await response.json();
+        console.log("라이브목록 가져오기 성공 "+data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching live streams:', error);
+        return [];
+    }
     console.log("회원가입 버튼이 클릭되었습니다.");
     // 원하는 기능 추가
 }
 
+// Function to populate live list dynamically
+async function populateLiveList() {
+    console.log("populateLiveList excuted");
+    const liveListDiv = document.getElementById('liveList');
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageIndex = urlParams.get('pageIndex') || 0;
+    const topId = urlParams.get('topId') || 3;
+    const sizePerPage = urlParams.get('sizePerPage') || 12;
+    const liveStreams = await fetchLiveStreams(pageIndex,topId,sizePerPage);
+    liveStreams.forEach((stream, index) => {
+        const streamLink = document.createElement('a');
+        streamLink.href = '#';
+        streamLink.textContent = stream.title;
+        streamLink.addEventListener('click', () => {
+            playLiveStream(stream.streamKey);
+        });
+        liveListDiv.appendChild(streamLink);
+        liveListDiv.appendChild(document.createElement('br'));
+    });
+}
+
+// Function to play selected live stream
+function playLiveStream(streamKey) {
+    const streamUrl = `https://localhost:8080.com/${streamKey}.m3u8`; // Assuming your stream URLs follow this pattern
+    const player = videojs('livePlayer');
+    player.src({
+        src: streamUrl,
+        type: 'application/x-mpegURL'
+    });
+    player.play();
+}
+
+// Populate live list when the page is loaded
+// window.onload = populateLiveList;
 function addProduct() {
     console.log("판매상품 등록 버튼이 클릭되었습니다.");
     // 원하는 기능 추가
@@ -74,3 +116,4 @@ function myPage() {
     console.log("마이페이지 버튼이 클릭되었습니다.");
     // 원하는 기능 추가
 }
+
