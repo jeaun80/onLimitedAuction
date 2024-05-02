@@ -45,7 +45,7 @@ public class ResponseReadBidDto {
         this.memberid = bid.getMember().getId();
         this.itemList = bid.getItems().stream().map(ResponseReadItemDto::new).toList();
         if(bid.getVideoPath()!=null){
-            this.videoFile = "http://localhost:8080"+bid.getVideoPath();
+            this.videoFile = "http://localhost:8083"+bid.getVideoPath();
         }
     }
 
