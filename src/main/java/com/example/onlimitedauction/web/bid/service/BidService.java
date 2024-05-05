@@ -19,7 +19,9 @@ public interface BidService {
 
     ResponseUploadBidDto VideoUpload(RequestUploadBidDto requestUploadBidDto);
 
+    Long updateStatus(RequestUpdateStatusBidDto requestDto);
 
+    String getStreamKey(Long id);
 
 
 }

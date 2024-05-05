@@ -33,6 +33,8 @@ public class ResponseReadBidDto {
 
     private String videoFile;
 
+    private String streamKey;
+
     private List<ResponseReadItemDto> itemList;
 
     public ResponseReadBidDto(Bid bid){
@@ -44,6 +46,7 @@ public class ResponseReadBidDto {
         this.endTime = bid.getEndTime();
         this.memberid = bid.getMember().getId();
         this.itemList = bid.getItems().stream().map(ResponseReadItemDto::new).toList();
+        this.streamKey = bid.getStreamKey();
         if(bid.getVideoPath()!=null){
             this.videoFile = "http://localhost:8083"+bid.getVideoPath();
         }

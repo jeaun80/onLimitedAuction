@@ -94,4 +94,18 @@ public class BidServiceImpl implements BidService{
         bidRepository.save(bid);
         return new ResponseUploadBidDto(bid.getId());
     }
+
+    @Override
+    public Long updateStatus(RequestUpdateStatusBidDto requestDto){
+
+        Bid bid = bidRepository.findByStreamKey(requestDto.getStreamKey()).orElseThrow(IllegalArgumentException::new);
+
+        bid.setBidStatus(requestDto.getStatus());
+        return bidRepository.save(bid).getId();
+    }
+
+    @Override
+    public String getStreamKey(Long id){
+        return bidRepository.findById(id).orElseThrow(IllegalArgumentException::new).getStreamKey();
+    }
 }
