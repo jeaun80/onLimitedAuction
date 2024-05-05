@@ -116,7 +116,7 @@
                     // 페이지에 정보 추가
                     document.body.appendChild(infoDiv);
                 });
-
+                console.log(stream.streamKey);
                 // 페이지에 정보 추가
                 playLiveStream(stream.streamKey);
             });
@@ -127,9 +127,15 @@
 
     // Function to play selected live stream
     function playLiveStream(streamKey) {
-        // const streamUrl = `https://localhost:8080.com/${streamKey}.m3u8`; // Assuming your stream URLs follow this pattern
-        const streamUrl = `http://localhost:8080/hls/test-stream-key.m3u8`; // Assuming your stream URLs follow this pattern
+        const streamUrl = `http://localhost:8080/hls/${streamKey}.m3u8`; // Assuming your stream URLs follow this pattern
+        // const streamUrl = `http://localhost:8080/hls/test-stream-key.m3u8`; // Assuming your stream URLs follow this pattern
         const player = videojs('livePlayer');
+
+        // player.src({
+        //     src: streamUrl,
+        //     type: 'application/x-mpegURL'
+        // });
+        // player.play();
         checkStreamStatus(streamUrl).then(() => {
             // Stream is live, play it
             //라이브시작 알림 서버에 요청 보낸다.

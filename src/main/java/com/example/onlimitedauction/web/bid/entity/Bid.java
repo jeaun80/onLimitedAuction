@@ -42,6 +42,8 @@ public class Bid {
 
     private String videoPath;
 
+    private String streamKey;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -52,4 +54,6 @@ public class Bid {
     public void setVideoPath(String videoPath) {
         this.videoPath = videoPath;
     }
+
+    public void setBidStatus(String status){this.bidStatus = bidType.valueOf(status);}
 }

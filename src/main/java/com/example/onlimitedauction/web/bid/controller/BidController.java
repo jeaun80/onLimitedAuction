@@ -79,4 +79,36 @@ log.info(responsedto.getId());
 
     }
 
+    @PostMapping("/status")
+    public ResponseEntity updateBidStatus(@RequestBody RequestUpdateStatusBidDto requestDto){
+        try{
+            Long id = bidService.updateStatus(requestDto);
+
+            return new ResponseEntity(id,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping("/streamkey/{id}")
+    public ResponseEntity getStreamKey(@PathVariable Long id){
+        try {
+            String key = bidService.getStreamKey(id);
+
+            return new ResponseEntity(key, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+//
+//    @GetMapping("/socket")
+//    public ResponseEntity createWebSocket(Long id){
+//        try{
+//        }catch (Exception e){
+//
+//        }
+//
+//    }
+
 }

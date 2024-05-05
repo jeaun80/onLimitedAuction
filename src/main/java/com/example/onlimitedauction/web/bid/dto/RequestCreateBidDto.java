@@ -1,5 +1,6 @@
 package com.example.onlimitedauction.web.bid.dto;
 
+import com.example.onlimitedauction.global.common.KeyGenerator;
 import com.example.onlimitedauction.global.type.bidType;
 import com.example.onlimitedauction.web.bid.entity.Bid;
 import com.example.onlimitedauction.web.member.entity.Member;
@@ -37,6 +38,7 @@ public class RequestCreateBidDto {
                 .startTime(startTime)
                 .endTime(endTime)
                 .member(member)
+                .streamKey(KeyGenerator.streamKeyGenerator())
                 .build();
     }
 }
