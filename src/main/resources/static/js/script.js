@@ -2,7 +2,7 @@
 function enterAuction() {
     console.log("경매입장 버튼이 클릭되었습니다.");
 
-    fetch('/testrest')
+    fetch('/api/auth/login')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -11,6 +11,7 @@ function enterAuction() {
         })
         .then(data => {
             console.log(data); // 서버에서 받은 데이터
+            localStorage.setItem('accessToken', data);
 
             // 서버로부터 받은 데이터를 화면에 표시
             document.getElementById('auctionResponse').innerHTML = data;

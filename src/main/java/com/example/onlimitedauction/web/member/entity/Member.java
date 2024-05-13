@@ -1,6 +1,7 @@
 package com.example.onlimitedauction.web.member.entity;
 
 import com.example.onlimitedauction.global.entity.BaseEntity;
+import com.example.onlimitedauction.global.type.UserType;
 import com.example.onlimitedauction.web.item.entity.Item;
 import com.example.onlimitedauction.web.member.dto.RequestUpdateMemberDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,7 +24,7 @@ public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -31,6 +32,8 @@ public class Member extends BaseEntity {
     private String email;
 
     private String password;
+
+    private UserType userType;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

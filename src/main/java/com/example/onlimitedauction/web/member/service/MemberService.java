@@ -1,9 +1,11 @@
 package com.example.onlimitedauction.web.member.service;
 
+import com.example.onlimitedauction.global.type.UserType;
 import com.example.onlimitedauction.web.member.dto.RequestUpdateMemberDto;
 import com.example.onlimitedauction.web.member.dto.RequestCreateMemberDto;
 import com.example.onlimitedauction.web.member.dto.ResponseMemberDto;
 import com.example.onlimitedauction.web.member.entity.Member;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public interface MemberService {
 
@@ -26,6 +28,7 @@ public interface MemberService {
                 .email(memberDto.getEmail())
                 .name(memberDto.getName())
                 .password(memberDto.getPassword())
+                .userType(UserType.COMMON)
                 .build();
     }
 }

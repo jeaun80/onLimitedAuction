@@ -7,6 +7,7 @@ import com.example.onlimitedauction.web.member.entity.Member;
 import com.example.onlimitedauction.web.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -23,6 +25,7 @@ public class MemberServiceImpl implements MemberService{
             throw new RuntimeException();
         }
 
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
         memberRepository.save(toEntity(memberDto));
     }
 

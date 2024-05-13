@@ -1,22 +1,20 @@
 package com.example.onlimitedauction.web.member.dto;
 
-import com.example.onlimitedauction.global.type.UserType;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class RequestCreateMemberDto {
+@NoArgsConstructor
+public class RequestLoginDto {
 
-    private String name;
-
+    @NotNull
+    @Email
     private String email;
 
+    @NotNull
     private String password;
-
-    private UserType userType;
 }
