@@ -1,8 +1,8 @@
-package com.example.onlimitedauction.web.bid.dto;
+package com.example.onlimitedauction.web.auction.dto;
 
 import com.example.onlimitedauction.global.common.KeyGenerator;
-import com.example.onlimitedauction.global.type.bidType;
-import com.example.onlimitedauction.web.bid.entity.Bid;
+import com.example.onlimitedauction.global.type.auctionType;
+import com.example.onlimitedauction.web.auction.entity.Auction;
 import com.example.onlimitedauction.web.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestCreateBidDto {
+public class RequestCreateAuctionDto {
 
 
     private String title;
@@ -29,12 +29,12 @@ public class RequestCreateBidDto {
 
     private Long memberId;
 
-    public Bid toEntity(Member member){
+    public Auction toEntity(Member member){
 
-        return Bid.builder()
+        return Auction.builder()
                 .title(title)
                 .discription(discription)
-                .bidStatus(bidType.BEFORE)
+                .bidStatus(auctionType.BEFORE)
                 .startTime(startTime)
                 .endTime(endTime)
                 .member(member)

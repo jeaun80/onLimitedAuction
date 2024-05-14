@@ -1,4 +1,4 @@
-package com.example.onlimitedauction.web.bid.dto;
+package com.example.onlimitedauction.web.auction.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseReadAllBidDto {
+public class ResponseReadAllAuctionDto {
 
-    List<ResponseReadBidDto> bidDtoList;
+    List<ResponseReadAuctionDto> bidDtoList;
     private Pageable pageable;
     private boolean isList;
 

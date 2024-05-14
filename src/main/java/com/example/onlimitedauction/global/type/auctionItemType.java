@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum bidType {
+public enum auctionItemType {
 
-    BEFORE("BEFORE", "시작 전"),
-    PROGRESS("PROGRESS", "진행 중"),
-    END("END", "완료");
+    BEFORE("BEFORE", "대기"),
+    PROGRESS("PROGRESS", "경매 준비 중"),
+    END("END", "경매 완료");
 
     private final String code;
     private final String name;

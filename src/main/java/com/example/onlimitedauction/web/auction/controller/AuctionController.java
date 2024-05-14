@@ -1,9 +1,8 @@
-package com.example.onlimitedauction.web.bid.controller;
+package com.example.onlimitedauction.web.auction.controller;
 
 
-import com.example.onlimitedauction.web.bid.dto.*;
-import com.example.onlimitedauction.web.bid.entity.Bid;
-import com.example.onlimitedauction.web.bid.service.BidService;
+import com.example.onlimitedauction.web.auction.dto.*;
+import com.example.onlimitedauction.web.auction.service.AuctionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -12,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Log4j2
-@RequestMapping("/api/bid")
+@RequestMapping("/api/Auction")
 @RequiredArgsConstructor
-public class BidController {
+public class AuctionController {
 
-    private final BidService bidService;
+    private final AuctionService AuctionService;
 
 
     @GetMapping()
-    public ResponseEntity readAllBid(
+    public ResponseEntity readAllAuction(
             @RequestParam(value = "pageIndex") Integer pageIndex,
             @RequestParam(value = "topId", required = false, defaultValue = "0") Long topId,
             @RequestParam(value = "sizePerPage", required = false, defaultValue = "12") Integer sizePerPage){
 
         try{
-            ResponseReadAllBidDto responseDto = bidService.readAllBid(pageIndex,sizePerPage,topId);
+            ResponseReadAllAuctionDto responseDto = AuctionService.readAllAuction(pageIndex,sizePerPage,topId);
 
             return new ResponseEntity(responseDto,HttpStatus.OK);
         }catch(Exception e){
@@ -35,9 +34,9 @@ public class BidController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity readBid(@PathVariable Long id){
+    public ResponseEntity readAuction(@PathVariable Long id){
         try{
-            ResponseReadBidDto responsedto = bidService.readBid(id);
+            ResponseReadAuctionDto responsedto = AuctionService.readAuction(id);
 log.info(responsedto.getId());
             return new ResponseEntity(responsedto, HttpStatus.OK);
         }catch(Exception e){
@@ -46,9 +45,9 @@ log.info(responsedto.getId());
     }
 
     @PostMapping()
-    public ResponseEntity createBid(@RequestBody RequestCreateBidDto requestCreateBidDto){
+    public ResponseEntity createAuction(@RequestBody RequestCreateAuctionDto requestCreateAuctionDto){
         try{
-            ResponseCreateBidDto responseDto = bidService.createBid(requestCreateBidDto);
+            ResponseCreateAuctionDto responseDto = AuctionService.createAuction(requestCreateAuctionDto);
 
             return new ResponseEntity(responseDto,HttpStatus.OK);
         }catch(Exception e){
@@ -57,9 +56,9 @@ log.info(responsedto.getId());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteBid(@PathVariable Long id){
+    public ResponseEntity deleteAuction(@PathVariable Long id){
         try{
-            ResponseDeleteBidDto responseDto = bidService.deleteBid(id);
+            ResponseDeleteAuctionDto responseDto = AuctionService.deleteAuction(id);
 
             return new ResponseEntity(responseDto,HttpStatus.OK);
         }catch (Exception e){
@@ -68,9 +67,9 @@ log.info(responsedto.getId());
     }
 
     @PostMapping("/upload")
-    public ResponseEntity bidVideoUpload( RequestUploadBidDto requestUploadBidDto){
+    public ResponseEntity AuctionVideoUpload( RequestUploadAuctionDto requestUploadAuctionDto){
         try{
-            ResponseUploadBidDto responseDto = bidService.VideoUpload(requestUploadBidDto);
+            ResponseUploadAuctionDto responseDto = AuctionService.VideoUpload(requestUploadAuctionDto);
 
             return new ResponseEntity(responseDto,HttpStatus.OK);
         }catch (Exception e){
@@ -80,9 +79,9 @@ log.info(responsedto.getId());
     }
 
     @PostMapping("/status")
-    public ResponseEntity updateBidStatus(@RequestBody RequestUpdateStatusBidDto requestDto){
+    public ResponseEntity updateAuctionStatus(@RequestBody RequestUpdateStatusAuctionDto requestDto){
         try{
-            Long id = bidService.updateStatus(requestDto);
+            Long id = AuctionService.updateStatus(requestDto);
 
             return new ResponseEntity(id,HttpStatus.OK);
         }catch (Exception e){
@@ -94,7 +93,7 @@ log.info(responsedto.getId());
     @GetMapping("/streamkey/{id}")
     public ResponseEntity getStreamKey(@PathVariable Long id){
         try {
-            String key = bidService.getStreamKey(id);
+            String key = AuctionService.getStreamKey(id);
 
             return new ResponseEntity(key, HttpStatus.OK);
         }catch (Exception e){

@@ -39,8 +39,8 @@ public class ResponseReadItemDto {
         this.itemStatus = item.getItemStatus();
         this.memberId = item.getMember().getId();
         this.imagePath = "http://localhost:8083"+item.getImagePath();
-        if(item.getBid()!=null){
-            this.bidId = item.getBid().getId();
+        if(item.getAuction()!=null){
+            this.bidId = item.getAuction().getId();
         }
     }
 

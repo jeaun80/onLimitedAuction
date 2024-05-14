@@ -1,4 +1,4 @@
-package com.example.onlimitedauction.web.bid.dto;
+package com.example.onlimitedauction.web.auction.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseCreateBidDto {
-    Long id;
+public class ResponseUploadAuctionDto {
+    private Long id;
 }

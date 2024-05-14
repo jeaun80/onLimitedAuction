@@ -1,6 +1,6 @@
-package com.example.onlimitedauction.web.bid.entity;
+package com.example.onlimitedauction.web.auction.entity;
 
-import com.example.onlimitedauction.global.type.bidType;
+import com.example.onlimitedauction.global.type.auctionType;
 import com.example.onlimitedauction.web.item.entity.Item;
 import com.example.onlimitedauction.web.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,11 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-public class Bid {
+public class Auction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bid_id")
+    @Column(name = "auction_id")
     private Long id;
 
 
@@ -32,7 +32,7 @@ public class Bid {
 
     private String discription;
 
-    private bidType bidStatus;
+    private auctionType auctionStatus;
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     private LocalDateTime startTime;
@@ -48,12 +48,12 @@ public class Bid {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "bid", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
     private List<Item> items = new ArrayList<>();
 
     public void setVideoPath(String videoPath) {
         this.videoPath = videoPath;
     }
 
-    public void setBidStatus(String status){this.bidStatus = bidType.valueOf(status);}
+    public void setAuctionStatus(String status){this.auctionStatus = auctionType.valueOf(status);}
 }

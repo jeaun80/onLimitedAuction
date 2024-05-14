@@ -2,9 +2,9 @@ package com.example.onlimitedauction.web.item.service;
 
 
 import com.example.onlimitedauction.global.Image.ImageService;
-import com.example.onlimitedauction.global.type.bidItemType;
-import com.example.onlimitedauction.web.bid.entity.Bid;
-import com.example.onlimitedauction.web.bid.service.BidService;
+import com.example.onlimitedauction.global.type.auctionItemType;
+import com.example.onlimitedauction.web.auction.entity.Auction;
+import com.example.onlimitedauction.web.auction.service.AuctionService;
 import com.example.onlimitedauction.web.item.dto.*;
 import com.example.onlimitedauction.web.item.entity.Item;
 import com.example.onlimitedauction.web.item.repository.ItemRepository;
@@ -29,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
     private final MemberService memberService;
     private final ItemRepository itemRepository;
     private final ImageService imageService;
-    private final BidService bidService;
+    private final AuctionService auctionService;
 
     @Override
     public ResponseCreateItemDto createItem(RequestCreateItemDto requestCreateItemDto) {
@@ -91,19 +91,19 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void updateBidItemAll(RequestUpdateBidItemDto requestUpdateBidItemDto) {
-        Bid bid = bidService.getCurrentBid(requestUpdateBidItemDto.getBidId());
+    public void updateAuctionItemAll(RequestUpdateAuctionItemDto requestUpdateauctionItemDto) {
+        Auction auction = auctionService.getCurrentAuction(requestUpdateauctionItemDto.getAuctionId());
 
-        List<Item> itemList = itemRepository.findAllById(requestUpdateBidItemDto.getBidList());
+        List<Item> itemList = itemRepository.findAllById(requestUpdateauctionItemDto.getAuctionList());
 
-        itemRepository.saveAll(setBidAll(itemList,bid));
+        itemRepository.saveAll(setauctionAll(itemList, auction));
     }
 
-    private List<Item> setBidAll(List<Item> itemList, Bid bid){
+    private List<Item> setauctionAll(List<Item> itemList, Auction auction){
         for (Item item:
                 itemList) {
-            item.setBid(bid);
-            item.setBidStatus(bidItemType.PROGRESS);
+            item.setAuction(auction);
+            item.setAuctionStatus(auctionItemType.PROGRESS);
         }
         return itemList;
     }

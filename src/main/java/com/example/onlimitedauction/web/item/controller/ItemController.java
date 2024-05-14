@@ -77,9 +77,9 @@ public class ItemController {
     }
 
     @PutMapping("/select")
-    public ResponseEntity setBidItemAll(@RequestBody RequestUpdateBidItemDto requestUpdateBidItemDto){
+    public ResponseEntity setAuctionItemAll(@RequestBody RequestUpdateAuctionItemDto requestUpdateAuctionItemDto){
         try{
-            itemService.updateBidItemAll(requestUpdateBidItemDto);
+            itemService.updateAuctionItemAll(requestUpdateAuctionItemDto);
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);

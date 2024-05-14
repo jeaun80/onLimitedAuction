@@ -1,4 +1,4 @@
-package com.example.onlimitedauction.web.bid.dto;
+package com.example.onlimitedauction.web.auction.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestUploadBidDto {
+public class RequestUploadAuctionDto {
 
     private Long id;
     private MultipartFile file;

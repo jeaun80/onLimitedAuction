@@ -1,6 +1,6 @@
 package com.example.onlimitedauction.web.item.dto;
 
-import com.example.onlimitedauction.global.type.bidItemType;
+import com.example.onlimitedauction.global.type.auctionItemType;
 import com.example.onlimitedauction.global.type.itemType;
 import com.example.onlimitedauction.web.item.entity.Item;
 import com.example.onlimitedauction.web.member.entity.Member;
@@ -30,7 +30,7 @@ public class RequestCreateItemDto {
                 .imagePath(imageName)
                 .minPrice(this.minPrice)
                 .itemStatus(this.itemStatus)
-                .bidStatus(bidItemType.BEFORE)
+                .auctionStatus(auctionItemType.BEFORE)
                 .member(member)
                 .build();
         return item;

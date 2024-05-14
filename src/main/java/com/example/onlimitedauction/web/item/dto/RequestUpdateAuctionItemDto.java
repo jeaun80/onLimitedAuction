@@ -10,10 +10,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestUpdateBidItemDto {
+public class RequestUpdateAuctionItemDto {
 
 
-    private List<Long> bidList = new LinkedList<>();
+    private List<Long> auctionList = new LinkedList<>();
 
-    private Long bidId;
+    private Long auctionId;
 }
